@@ -1,6 +1,6 @@
 # DoH
 
-## run
+## Run
 - docker-compose up -d  
 
 ## View connection
