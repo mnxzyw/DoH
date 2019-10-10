@@ -1,5 +1,23 @@
 # DoH
 
+## docker-compose
+```
+version: '3'
+services:
+  cloudflared:
+    image: mnxzyw/DoH:latest
+    container_name: cloudflared
+    restart: unless-stopped
+    ports:
+      - 53:53/udp
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "1g"
+        max-file: "3"
+        compress: "true"
+```
+
 ## Run
 - docker-compose up -d  
 
