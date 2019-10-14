@@ -1,4 +1,4 @@
-# DoH
+# DoH (DNS OVER HTTPS)
 
 ## docker-compose
 ```
