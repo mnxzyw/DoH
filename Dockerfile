@@ -20,6 +20,7 @@ proxy-dns-upstream: \n\
   - https://1.0.0.1/dns-query \n\
 " > config.yml
 
+EXPOSE 53
 EXPOSE 53/udp
 
 ENTRYPOINT ["./cloudflared", "--config", "config.yml"]
