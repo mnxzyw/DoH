@@ -15,7 +15,8 @@ RUN echo "\
 proxy-dns: true \n\
 proxy-dns-address: 0.0.0.0 \n\
 proxy-dns-upstream: \n\
-  # - https://1.1.1.1/dns-query  \n\
+  - https://cloudflare-dns.com/dns-query \n\
+  - https://1.1.1.1/dns-query  \n\
   - https://1.0.0.1/dns-query    \n\
   - https://dns.google/dns-query \n\
 " > config.yml
