@@ -16,6 +16,7 @@ FROM debian:stable-slim
 COPY --from=builder /app/cloudflared /usr/local/bin
 RUN chmod +x /usr/local/bin/cloudflared
 
+WORKDIR /app
 RUN echo "\
 proxy-dns: true \n\
 proxy-dns-address: 0.0.0.0 \n\
@@ -25,9 +26,9 @@ proxy-dns-upstream: \n\
   - https://dns.google/dns-query \n\
   - https://1.1.1.1/dns-query  \n\
   - https://1.0.0.1/dns-query  \n\
-" > /etc/cloudflare/config.yml
+" > config.yml
 
 EXPOSE 53
 EXPOSE 53/udp
 
-ENTRYPOINT ["cloudflared", "--config", "/etc/cloudflare/config.yml"]
+ENTRYPOINT ["cloudflared", "--config", "/app/config.yml"]
