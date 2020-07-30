@@ -1,7 +1,7 @@
-FROM debian:latest
+FROM debian:latest as builder
 
 # Cloudflared
-WORKDIR /app/cloudflare/
+WORKDIR /app
 
 RUN apt-get update \
  && DEBIAN_FRONTEND=noninteractive \
@@ -10,6 +10,11 @@ RUN apt-get update \
  && rm -rf /var/lib/apt/lists/*
 
 RUN wget -O- https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz | tar xz
+
+
+FROM debian:stable-slim
+COPY --from=builder /app/cloudflared /usr/local/bin
+RUN chmod +x /usr/local/bin/cloudflared
 
 RUN echo "\
 proxy-dns: true \n\
@@ -20,9 +25,9 @@ proxy-dns-upstream: \n\
   - https://dns.google/dns-query \n\
   - https://1.1.1.1/dns-query  \n\
   - https://1.0.0.1/dns-query  \n\
-" > config.yml
+" > /etc/cloudflare/config.yml
 
 EXPOSE 53
 EXPOSE 53/udp
 
-ENTRYPOINT ["./cloudflared", "--config", "config.yml"]
+ENTRYPOINT ["cloudflared", "--config", "/etc/cloudflare/config.yml"]
