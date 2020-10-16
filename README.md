@@ -5,7 +5,7 @@
 version: '3'
 services:
   cloudflared:
-    image: mnxzyw/cloudflared:latest
+    image: cloudflared:latest
     container_name: cloudflared
     restart: unless-stopped
     ports:
