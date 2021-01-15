@@ -9,8 +9,8 @@ services:
     container_name: cloudflared
     restart: unless-stopped
     ports:
-      - 53:53
-      - 53:53/udp
+      - 127.0.0.1:53:53
+      - 127.0.0.1:53:53/udp
     logging:
       driver: "json-file"
       options:
