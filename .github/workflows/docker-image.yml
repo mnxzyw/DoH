@@ -34,4 +34,4 @@ jobs:
           context: .
           platforms: linux/amd64
           push: true
-          tags: whoer/cloudflared:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/cloudflared:latest
