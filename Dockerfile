@@ -1,6 +1,7 @@
 FROM debian:latest as builder
 
 # Cloudflared
+ARG architecture
 WORKDIR /app
 
 RUN apt-get update \
@@ -8,9 +9,16 @@ RUN apt-get update \
     apt-get install -y wget \
  && apt-get clean \
  && rm -rf /var/lib/apt/lists/*
+ 
+RUN case $(uname -m) in \
+        i386)   architecture="386" ;; \
+        i686)   architecture="386" ;; \
+        x86_64) architecture="amd64" ;; \
+        arm)    dpkg --print-architecture | grep -q "arm64" && architecture="arm64" || architecture="arm" ;; \
+    esac
 
 #RUN wget -O- https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz | tar xz
-RUN wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O cloudflared
+RUN wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${architecture} -O cloudflared
 
 FROM debian:stable-slim
 RUN apt-get update \
