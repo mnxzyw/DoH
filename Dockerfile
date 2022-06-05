@@ -1,22 +1,14 @@
 FROM golang:alpine as builder
 
-# Cloudflared
-ARG architecture
+ARG TARGETARCH
 WORKDIR /app
 
 RUN apk --no-cache --no-progress add \
     wget
  
-RUN case $(uname -m) in \
-        i386)   architecture="386" ;; \
-        i686)   architecture="386" ;; \
-        x86_64) architecture="amd64" ;; \
-        arm)    dpkg --print-architecture | grep -q "arm64" && architecture="arm64" || architecture="arm" ;; \
-    esac
-
 #RUN wget -O- https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz | tar xz
 RUN echo ${architecture}
-RUN url=https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${architecture} \
+RUN url=https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${TARGETARCH} \
  && echo $url \
  && wget $url -O cloudflared
 
