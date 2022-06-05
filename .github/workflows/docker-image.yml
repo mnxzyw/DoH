@@ -38,6 +38,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          platforms: linux/amd64
+          platforms: linux/amd64, linux/arm64
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/cloudflared:latest, ${{ secrets.DOCKERHUB_USERNAME }}/cloudflared:${{ steps.download.outputs.latest_tag }}
