@@ -18,7 +18,8 @@ RUN case $(uname -m) in \
     esac
 
 #RUN wget -O- https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz | tar xz
-RUN wget "https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${architecture}" -O cloudflared
+RUN url=https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${architecture} \
+ && wget $url -O cloudflared
 
 FROM debian:stable-slim
 RUN apt-get update \
