@@ -1,14 +1,11 @@
-FROM golang:debian as builder
+FROM golang:alpine as builder
 
 # Cloudflared
 ARG architecture
 WORKDIR /app
 
-RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive \
-    apt-get install -y wget \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+RUN apk --no-cache --no-progress add \
+    wget
  
 RUN case $(uname -m) in \
         i386)   architecture="386" ;; \
@@ -23,12 +20,9 @@ RUN url=https://github.com/cloudflare/cloudflared/releases/latest/download/cloud
  && echo $url \
  && wget $url -O cloudflared
 
-FROM debian:stable-slim
-RUN apt-get update \
- && DEBIAN_FRONTEND=noninteractive \
-    apt-get install -y ca-certificates \
- && apt-get clean \
- && rm -rf /var/lib/apt/lists/*
+FROM alpine
+RUN apk --no-cache --no-progress add \
+    ca-certificates 
 COPY --from=builder /app/cloudflared /usr/local/bin
 RUN chmod +x /usr/local/bin/cloudflared
 
