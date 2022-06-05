@@ -1,4 +1,4 @@
-FROM golang:alpine as builder
+FROM golang:debian as builder
 
 # Cloudflared
 ARG architecture
