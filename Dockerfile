@@ -7,10 +7,7 @@ RUN apk --no-cache --no-progress add \
     wget
  
 #RUN wget -O- https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz | tar xz
-RUN echo ${architecture}
-RUN url=https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${TARGETARCH} \
- && echo $url \
- && wget $url -O cloudflared
+RUN wget https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${TARGETARCH} -O cloudflared
 
 FROM alpine
 RUN apk --no-cache --no-progress add \
