@@ -18,6 +18,7 @@ RUN case $(uname -m) in \
     esac
 
 #RUN wget -O- https://bin.equinox.io/c/VdrWdbjqyF/cloudflared-stable-linux-amd64.tgz | tar xz
+RUN echo ${architecture}
 RUN url=https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-${architecture} \
  && echo $url \
  && wget $url -O cloudflared
