@@ -35,4 +35,6 @@ proxy-dns-upstream: \n\
 EXPOSE 53
 EXPOSE 53/udp
 
+USER nonroot
+
 ENTRYPOINT ["cloudflared", "--config", "/app/config.yml"]
