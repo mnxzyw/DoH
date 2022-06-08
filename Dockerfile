@@ -29,8 +29,6 @@ proxy-dns: true \n\
 proxy-dns-address: 0.0.0.0 \n\
 proxy-dns-upstream: \n\
   - https://dns.adguard.com/dns-query \n\
-  - https://1.0.0.1/dns-query \n\
-  - https://1.1.1.1/dns-query \n\
 " > config.yml
 
 EXPOSE 53
